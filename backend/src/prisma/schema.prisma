@@ -1,0 +1,224 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// model User {
+//   id          Int     @id @default(autoincrement())
+//   username String @unique
+//   name        String?
+//   phone       String?
+//   email       String  @unique
+//   photo       String?
+//   designation String
+//   officeName  String
+// }
+model User {
+  id       Int     @id @default(autoincrement())
+  username String  @unique
+  email    String  @unique
+  name     String?
+  password String
+  access_token        String?         @db.VarChar(2024)
+  role     String  @default("user")
+}
+
+model gallery {
+  id          Int    @id @default(autoincrement())
+  photo       String
+  title       String
+  description String
+  port        port?  @relation(fields: [portId], references: [id])
+  portId      Int
+}
+
+model ghat {
+  id                  Int    @id @default(autoincrement())
+  name                String @unique
+  lease_status        String @default("")
+  leaser              String
+  geolocation_of_ghat String @default("")
+  lease_amount_23     String
+  lease_amount_24     String
+  Port                port?  @relation(fields: [portId], references: [id])
+  portId              Int @default(8)
+  ticket_income       ticket_income[]
+}
+
+
+model vessel {
+  id                  Int    @id @default(autoincrement())
+  name                String @unique
+  photo               String
+  detail              String
+  registration_number String @unique
+  Port                port?  @relation(fields: [portId], references: [id])
+  portId              Int
+}
+
+model port {
+  id                 Int       @id @default(autoincrement())
+  name               String    @unique
+  location           String
+  hydrographic_chart String
+  river_area         Float?
+  land_area          Float?
+  photo_gallery      gallery[]
+  ghats              ghat[]
+  vessels            vessel[]
+}
+
+model cctv {
+  id          Int    @id @default(autoincrement())
+  name        String
+  location    String
+  description String
+  url         String
+  details     String
+}
+
+model human_resource {
+  id             Int    @id @default(autoincrement())
+  name           String
+  email          String @default("")
+  photo          String
+  designation    String
+  office_name    String
+  contact_number String
+}
+
+model image {
+  id          Int    @id @default(autoincrement())
+  image       String
+  title       String
+  description String
+  Plan        plan?  @relation(fields: [planId], references: [id])
+  planId      Int
+}
+
+model file {
+  id          Int    @id @default(autoincrement())
+  title       String
+  file        String
+  description String
+  Plan        plan?  @relation(fields: [planId], references: [id])
+  planId      Int
+}
+
+model plan {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String
+  images      image[]
+  files       file[]
+}
+
+model assets {
+  id              Int    @id @default(autoincrement())
+  name            String
+  detail          String
+  identity_number String @default("")
+  location        String
+}
+
+model ticket_income {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  source String
+  amount Int
+  ghat   String
+  detail String
+  Ghat   ghat?  @relation(fields: [ghatId], references: [id])
+  ghatId Int
+}
+
+model expense {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  type   String
+  amount Int
+  detail String
+}
+
+model c_p_income {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  title  String
+  amount Int
+  detail String
+}
+
+model passanger_traffic {
+  id              Int      @id @default(autoincrement())
+  date            DateTime
+  ghat            String
+  passenger_count Int
+}
+
+model launch_traffic {
+  id    Int      @id @default(autoincrement())
+  date  DateTime
+  ghat  String
+  count Int
+}
+
+model launch_schedule {
+  id            Int      @id @default(autoincrement())
+  time          DateTime
+  from_ghat     String
+  to_ghat       String
+  launch_name   String
+  launch_number String
+}
+
+model ticket_book_requesition {
+  id       Int      @id @default(autoincrement())
+  date     DateTime
+  quantity Int
+  ghat     String
+  title    String
+  detail   String
+  status   String
+}
+
+model photo {
+  id                Int              @id @default(autoincrement())
+  photo             String
+  title             String
+  description       String
+  port_activities   port_activities? @relation(fields: [port_activitiesId], references: [id])
+  port_activitiesId Int?
+}
+
+model video {
+  id                Int              @id @default(autoincrement())
+  video             String
+  title             String
+  description       String
+  port_activities   port_activities? @relation(fields: [port_activitiesId], references: [id])
+  port_activitiesId Int?
+}
+
+model port_activities {
+  id          Int      @id @default(autoincrement())
+  date        DateTime
+  title       String
+  description String
+  photoes     photo[]
+  videos      video[]
+}
+
+model marine_courte_cases {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  number Int
+  detail String
+  status String
+}

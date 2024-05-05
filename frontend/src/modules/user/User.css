@@ -1,0 +1,22 @@
+#login-module {
+  margin-top: 30px;
+}
+#login-module .login-form {
+    margin-top: 50px;
+}
+#login-module .login-form-forgot {
+  float: right;
+}
+#login-module .ant-col-rtl .login-form-forgot {
+  float: left;
+}
+#login-module .login-form-button {
+  width: 100%;
+}
+
+.user-avatar:hover {
+  cursor: pointer;
+}
+.user-menu .ant-list-item:hover {
+  cursor: pointer;
+}

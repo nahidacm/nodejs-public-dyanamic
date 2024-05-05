@@ -1,0 +1,498 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "definitions": {
+    "User": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "username": { "type": "string" },
+          "email": { "type": "string" },
+          "name": { "type": "string" },
+          "password": { "type": "string" },
+          "access_token": { "type": "string" },
+          "role": { "type": "string" }
+        },
+        "additionalProperties": false,
+        "required": ["username", "email"]
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/User/item" }
+      }
+    },
+    "gallery": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "photo": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "port": { "$ref": "#/definitions/port/item" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/gallery/item" }
+      }
+    },
+    "ghat": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "name": { "type": "string" },
+          "lease_status": { "type": "string" },
+          "leaser": { "type": "string" },
+          "geolocation_of_ghat": { "type": "string" },
+          "Port": { "$ref": "#/definitions/port/item" },
+          "ticket_income": { "$ref": "#/definitions/ticket_income/items" }
+        },
+        "additionalProperties": false,
+        "required": ["name"]
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/ghat/item" }
+      }
+    },
+    "vessel": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "name": { "type": "string" },
+          "photo": { "type": "string" },
+          "detail": { "type": "string" },
+          "registration_number": { "type": "string" },
+          "Port": { "$ref": "#/definitions/port/item" }
+        },
+        "additionalProperties": false,
+        "required": ["name", "registration_number"]
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/vessel/item" }
+      }
+    },
+    "port": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "name": { "type": "string" },
+          "location": { "type": "string" },
+          "hydrographic_chart": { "type": "string" },
+          "river_area": { "type": "number" },
+          "land_area": { "type": "number" },
+          "photo_gallery": { "$ref": "#/definitions/gallery/items" },
+          "ghats": { "$ref": "#/definitions/ghat/items" },
+          "vessels": { "$ref": "#/definitions/vessel/items" }
+        },
+        "additionalProperties": false,
+        "required": ["name"]
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/port/item" }
+      }
+    },
+    "cctv": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "name": { "type": "string" },
+          "location": { "type": "string" },
+          "description": { "type": "string" },
+          "url": { "type": "string" },
+          "details": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/cctv/item" }
+      }
+    },
+    "human_resource": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "name": { "type": "string" },
+          "email": { "type": "string" },
+          "photo": { "type": "string" },
+          "designation": { "type": "string" },
+          "office_name": { "type": "string" },
+          "contact_number": { "type": "string" }
+        },
+        "additionalProperties": false,
+        "required": ["email"]
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/human_resource/item" }
+      }
+    },
+    "image": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "image": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "Plan": { "$ref": "#/definitions/plan/item" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/image/item" }
+      }
+    },
+    "file": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "title": { "type": "string" },
+          "file": { "type": "string" },
+          "description": { "type": "string" },
+          "Plan": { "$ref": "#/definitions/plan/item" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/file/item" }
+      }
+    },
+    "plan": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "images": { "$ref": "#/definitions/image/items" },
+          "files": { "$ref": "#/definitions/file/items" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/plan/item" }
+      }
+    },
+    "assets": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "name": { "type": "string" },
+          "detail": { "type": "string" },
+          "identity_number": { "type": "string" },
+          "location": { "type": "string" }
+        },
+        "additionalProperties": false,
+        "required": ["identity_number"]
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/assets/item" }
+      }
+    },
+    "ticket_income": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "date": { "type": "string", "format": "date-time" },
+          "source": { "type": "string" },
+          "amount": { "type": "number" },
+          "ghat": { "type": "string" },
+          "detail": { "type": "string" },
+          "Ghat": { "$ref": "#/definitions/ghat/item" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/ticket_income/item" }
+      }
+    },
+    "expense": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "date": { "type": "string", "format": "date-time" },
+          "type": { "type": "string" },
+          "amount": { "type": "number" },
+          "detail": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/expense/item" }
+      }
+    },
+    "c_p_income": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "date": { "type": "string", "format": "date-time" },
+          "title": { "type": "string" },
+          "amount": { "type": "number" },
+          "detail": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/c_p_income/item" }
+      }
+    },
+    "passanger_traffic": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "date": { "type": "string", "format": "date-time" },
+          "ghat": { "type": "string" },
+          "passenger_count": { "type": "number" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/passanger_traffic/item" }
+      }
+    },
+    "launch_traffic": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "date": { "type": "string", "format": "date-time" },
+          "ghat": { "type": "string" },
+          "count": { "type": "number" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/launch_traffic/item" }
+      }
+    },
+    "launch_schedule": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "time": { "type": "string", "format": "date-time" },
+          "from_ghat": { "type": "string" },
+          "to_ghat": { "type": "string" },
+          "launch_name": { "type": "string" },
+          "launch_number": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/launch_schedule/item" }
+      }
+    },
+    "ticket_book_requesition": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "date": { "type": "string", "format": "date-time" },
+          "quantity": { "type": "number" },
+          "ghat": { "type": "string" },
+          "title": { "type": "string" },
+          "detail": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/ticket_book_requesition/item" }
+      }
+    },
+    "photo": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "photo": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "port_activities": { "$ref": "#/definitions/port_activities/item" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/photo/item" }
+      }
+    },
+    "video": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "video": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "port_activities": { "$ref": "#/definitions/port_activities/item" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/video/item" }
+      }
+    },
+    "port_activities": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "date": { "type": "string", "format": "date-time" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "photoes": { "$ref": "#/definitions/photo/items" },
+          "videos": { "$ref": "#/definitions/video/items" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/port_activities/item" }
+      }
+    },
+    "marine_courte_cases": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}(-[a-f0-9]{4}){4}[a-f0-9]{8}$"
+          },
+          "date": { "type": "string", "format": "date-time" },
+          "number": { "type": "number" },
+          "detail": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "items": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/marine_courte_cases/item" }
+      }
+    }
+  },
+  "properties": {
+    "user": { "$ref": "#/definitions/User/items" },
+    "gallery": { "$ref": "#/definitions/gallery/items" },
+    "ghat": { "$ref": "#/definitions/ghat/items" },
+    "vessel": { "$ref": "#/definitions/vessel/items" },
+    "port": { "$ref": "#/definitions/port/items" },
+    "cctv": { "$ref": "#/definitions/cctv/items" },
+    "human_resource": { "$ref": "#/definitions/human_resource/items" },
+    "image": { "$ref": "#/definitions/image/items" },
+    "file": { "$ref": "#/definitions/file/items" },
+    "plan": { "$ref": "#/definitions/plan/items" },
+    "assets": { "$ref": "#/definitions/assets/items" },
+    "ticket_income": { "$ref": "#/definitions/ticket_income/items" },
+    "expense": { "$ref": "#/definitions/expense/items" },
+    "c_p_income": { "$ref": "#/definitions/c_p_income/items" },
+    "passanger_traffic": { "$ref": "#/definitions/passanger_traffic/items" },
+    "launch_traffic": { "$ref": "#/definitions/launch_traffic/items" },
+    "launch_schedule": { "$ref": "#/definitions/launch_schedule/items" },
+    "ticket_book_requesition": {
+      "$ref": "#/definitions/ticket_book_requesition/items"
+    },
+    "photo": { "$ref": "#/definitions/photo/items" },
+    "video": { "$ref": "#/definitions/video/items" },
+    "port_activities": { "$ref": "#/definitions/port_activities/items" },
+    "marine_courte_cases": {
+      "$ref": "#/definitions/marine_courte_cases/items"
+    },
+    "$schema": { "type": "string", "format": "uri" }
+  },
+  "additionalProperties": false
+}
